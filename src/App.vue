@@ -50,7 +50,7 @@
 			}
 			
 			if (this.user) {
-				this.socket = io('localhost:3001', {transports: ['websocket', 'polling', 'flashsocket']});
+				this.socket = io(process.env.API_URL, {transports: ['websocket', 'polling', 'flashsocket']});
 				this.socket.on('connect', () => {
 					this.connect();
 				});
