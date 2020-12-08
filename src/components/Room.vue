@@ -7,7 +7,7 @@
 </template>
 
 <script>
-	import MiniCard from './MiniCard'
+	import MiniCard from './MiniCard.vue'
 
 	export default {
 		name: 'Room',
