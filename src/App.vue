@@ -3,7 +3,6 @@
 		<section class="hero is-light is-fullheight">
 			<div class="hero-head">
 				<Header :user="user" :participants="users" :revealCards="revealCards" :votes="votes" @onRevealCardClicked="onRevealCardClicked" @onResetClicked="onResetClicked" />
-				
 				<UserList :users="users" :votedUsers="votes.map(v => v.user)" />
 			</div>
 
@@ -39,7 +38,8 @@
 				users: [],
 				socket: {},
 				votes:  [],
-				revealCards: false
+				revealCards: false,
+				time: ''
 			}
 		},
 		created() {
@@ -50,13 +50,18 @@
 			}
 			
 			if (this.user) {
-				this.socket = io(process.env.API_URL, {transports: ['websocket', 'polling', 'flashsocket']});
+				var apiUrl = process.env.API_URL || 'https://pokymon-server.herokuapp.com';
+				console.log(apiUrl)
+				this.socket = io(apiUrl, {transports: ['websocket', 'polling', 'flashsocket']});
 				this.socket.on('connect', () => {
 					this.connect();
 				});
 			}
 		},
 		mounted() {
+			this.socket.on('time', (timeString) => {
+				this.time = timeString;
+			});
 			this.socket.on('votes', (votes) => {
 				this.votes = votes
 			})
