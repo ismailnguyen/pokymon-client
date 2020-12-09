@@ -3,7 +3,7 @@
 		<section class="hero is-light is-fullheight">
 			<div class="hero-head">
 				<Header :user="user" :participants="users" :revealCards="revealCards" :votes="votes" @onRevealCardClicked="onRevealCardClicked" @onResetClicked="onResetClicked" />
-				<UserList :users="users" :votedUsers="votes.map(v => v.user)" />
+				<UserList :users="users" :votedUsers="votes.filter(v => v.vote).map(v => v.user)" />
 			</div>
 
 			<div class="hero-body">
@@ -104,14 +104,16 @@
 			},
 			sendMessage(choice) {
 				var userVote = this.votes.find(v => v.user == this.user)
-				if (userVote)
+				if (userVote) {
 					this.votes.find(v => v.user == this.user).vote = choice
-				else
+				}
+				else {
 					this.votes.push({
 						user: this.user,
 						vote: choice
 					})
-				
+				}
+
 				this.socket.emit('send_votes', this.votes);
 			},
 		},

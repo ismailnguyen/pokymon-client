@@ -1,7 +1,7 @@
 <template>
 	<div class="container has-text-centered">
 		<div class="cards">
-			<MiniCard v-for="(vote, index) in votes" :key="index" :value="vote.vote" :user="vote.user" :visible="revealCards" />
+			<MiniCard v-for="(vote, index) in votes.filter(v => v.vote)" :key="index" :value="vote.vote" :user="vote.user" :visible="revealCards" />
 		</div>
 	</div>
 </template>
