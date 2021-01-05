@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<section class="hero is-light is-fullheight">
+		<section class="hero is-fullheight">
 			<div class="hero-head">
 				<Header :user="user" :participants="users" :revealCards="revealCards" :votes="votes" @onRevealCardClicked="onRevealCardClicked" @onResetClicked="onResetClicked" />
 				<UserList :users="users" :votedUsers="votes.filter(v => v.vote).map(v => v.user)" />
@@ -128,5 +128,7 @@
 </script>
 
 <style>
-
+	body {
+		background: #edf2f7;
+	}
 </style>

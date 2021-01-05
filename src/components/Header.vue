@@ -2,7 +2,7 @@
 	<header class="navbar">
         <div class="navbar-brand">
 			<a class="navbar-item">
-				Pokymon
+				<span class="tag is-info is-light is-large">Pokymon</span>
 			</a>
         </div>
 		<div class="navbar-end">

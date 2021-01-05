@@ -1,6 +1,5 @@
 <template>
-	<label class="card" :class="visible ? 'show' : ''" :style="{'transform': 'rotate('+this.randomRotation()+'deg)'}">
-	<div class="back"></div>
+	<label class="card">
     <div class="front">
       <div class="num-box top">
         <div class="suit">{{ value }}</div>
@@ -9,7 +8,7 @@
         <div class="suit">{{ value }}</div>
       </div>
       <div class="suit main">
-		<span class="tag is-light">{{user}}</span>
+		<span class="tag is-dark">Average</span>
 		</div>
     </div>
   </label>
@@ -17,29 +16,24 @@
 
 <script>
 	export default {
-		name: 'MiniCard',
-		props: ['user', 'value', 'visible'],
-		methods: {
-			randomRotation() {
-				return (Math.random() * 3 - 1.5).toFixed(2)
-			}
-		}
+		name: 'AverageCard',
+		props: ['value']
 	}
 </script>
 
 <style scoped>
 	.card {
 		display: block;
-		width: 150px;
-		height: 200px;
-		margin: 12px;
+		width: 200px;
+		height: 250px;
+		margin: 50px auto;
 		position: relative;
 		font-family: 'Syne Mono', monospace;
-		cursor: pointer;
 		background: none !important;
+		color: white;
 	}
 
-	.front, .back {
+	.front {
 		position: absolute;
 		left: 0;
 		top: 0;
@@ -49,26 +43,8 @@
 		border-radius: 12px;
 		backface-visibility: hidden;
 		transition: all 0.5s;	
-	}
-
-	.back {
-		border: 6px solid #fff;
-		background: conic-gradient(#ffcc33 25%, #fff3ce 25%, #fff3ce 50%, #ffcc33 50%, #ffcc33 75%, #fff3ce 75%);
-		background-size: 20px 20px;
-		transform: rotateY(0deg);
-	}
-
-	.front {
 		font-size: 24px;
-		transform: rotateY(180deg);
-	}
-	
-	.card.show .back {
-		transform: rotateY(-180deg);
-	}
-
-    .card.show .front {
-		background-color: #fff;
+		background-color: #1F2023;
 		transform: rotateY(0deg);
 	}
 
