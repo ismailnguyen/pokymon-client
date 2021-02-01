@@ -2,15 +2,18 @@
 	<div id="app">
 		<section class="hero is-fullheight">
 			<div class="hero-head">
-				<Header :user="user" :participants="users" :revealCards="revealCards" :votes="votes" @onRevealCardClicked="onRevealCardClicked" @onResetClicked="onResetClicked" />
-				<UserList :users="users" :votedUsers="votes.filter(v => v.vote).map(v => v.user)" />
+				<Header :revealCards="revealCards" :votes="votes" @onRevealCardClicked="onRevealCardClicked" @onResetClicked="onResetClicked" v-show="!showLoader" />
+				<UserList :users="users" :votedUsers="votes.filter(v => v.vote).map(v => v.user)" v-show="!showLoader" />
 			</div>
 
 			<div class="hero-body">
-				<Room :votes="votes" :revealCards="revealCards" />
+				<Room :votes="votes" :revealCards="revealCards" v-show="!showLoader" />
+				<div class="container is-centered">
+					<loader v-show="showLoader" />
+				</div>
 			</div>
 
-			<div class="hero-foot">
+			<div class="hero-foot" v-show="!showLoader">
 				<CardPanel @onClickCard="onClickCard" :revealCards="revealCards" />
 			</div>
 		</section>
@@ -23,6 +26,7 @@
 	import Room from './components/Room.vue'
 	import CardPanel from './components/CardPanel.vue'
 	import UserList from './components/UserList.vue'
+	import Loader from './components/Loader.vue'
 
 	export default {
 		name: 'App',
@@ -30,7 +34,8 @@
 			Header,
 			Room,
 			UserList,
-			CardPanel
+			CardPanel,
+			Loader
 		},
 		data() {
 			return {
@@ -39,7 +44,8 @@
 				socket: {},
 				votes:  [],
 				revealCards: false,
-				time: ''
+				time: '',
+				showLoader: true
 			}
 		},
 		created() {
@@ -87,6 +93,9 @@
 			this.socket.on('card_revealed', () => {
 				this.revealCards = true
 			})
+
+			// Show loader animation
+			setTimeout(() => this.showLoader = false, 1500);
 		},
 		methods: {
 			onClickCard (choice) {

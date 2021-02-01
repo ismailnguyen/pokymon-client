@@ -1,536 +1,145 @@
 <template>
-	<div class="loader">
-		<div class="cyan">1</div>
-		<div class="blue">3</div>
-		<div class="green">5</div>
-		<div class="red">8</div>
-	</div>
+  <div class="head">
+    <h1>Pokymon</h1>
+  </div>
 </template>
 
 <style scoped>
-.loader {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  font-size: 0;
-  transform: rotate(0deg);
-  -webkit-animation: loader 5s ease infinite;
-  -moz-animation: loader 5s ease infinite;
-  -o-animation: loader 5s ease infinite;
-  animation: loader 5s ease infinite;
-  margin-left: auto;
-  margin-right: auto;
-  top: 55px;
-}
-.loader div {
-  width: 50px;
-  height: 50px;
-  position: relative;
-  border-radius: 10px;
-  color: white;
-  font-size: 46px;
-  text-align: center;
-  display: inline-block;
-}
-.loader div.red {
-  background-color: #EF5350;
-  color: #EF5350;
-  -webkit-animation: redanim 5s ease infinite, redfont 5s ease infinite;
-  -moz-animation: redanim 5s ease infinite, redfont 5s ease infinite;
-  -o-animation: redanim 5s ease infinite, redfont 5s ease infinite;
-  animation: redanim 5s ease infinite, redfont 5s ease infinite;
-}
-.loader div.blue {
-  background-color: #2196F3;
-  color: #2196F3;
-  -webkit-animation: blueanim 5s ease infinite, bluefont 5s ease infinite;
-  -moz-animation: blueanim 5s ease infinite, bluefont 5s ease infinite;
-  -o-animation: blueanim 5s ease infinite, bluefont 5s ease infinite;
-  animation: blueanim 5s ease infinite, bluefont 5s ease infinite;
-}
-.loader div.green {
-  background-color: #009688;
-  color: #009688;
-  -webkit-animation: greenanim 5s ease infinite, greenfont 5s ease infinite;
-  -moz-animation: greenanim 5s ease infinite, greenfont 5s ease infinite;
-  -o-animation: greenanim 5s ease infinite, greenfont 5s ease infinite;
-  animation: greenanim 5s ease infinite, greenfont 5s ease infinite;
-}
-.loader div.cyan {
-  background-color: #00BCD4;
-  color: #00BCD4;
-  -webkit-animation: cyananim 5s ease infinite, cyanfont 5s ease infinite;
-  -moz-animation: cyananim 5s ease infinite, cyanfont 5s ease infinite;
-  -o-animation: cyananim 5s ease infinite, cyanfont 5s ease infinite;
-  animation: cyananim 5s ease infinite, cyanfont 5s ease infinite;
-}
+    @import url(https://fonts.googleapis.com/css?family=Oswald:400,300,700);
 
-@-webkit-keyframes loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(90deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(270deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-moz-keyframes loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(90deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(270deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(90deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(270deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes loader {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(90deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(270deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes redanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(1);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-moz-keyframes redanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(1);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-o-keyframes redanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(1);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@keyframes redanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(1);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-webkit-keyframes greenanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(1);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-moz-keyframes greenanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(1);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-o-keyframes greenanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(1);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@keyframes greenanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(1);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-webkit-keyframes blueanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(1);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-moz-keyframes blueanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(1);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-o-keyframes blueanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(1);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@keyframes blueanim {
-  0% {
-    transform: rotate(0deg) scale(0.5);
-  }
-  25% {
-    transform: rotate(-90deg) scale(1);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(0.5);
-  }
-}
-@-webkit-keyframes cyananim {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(1);
-  }
-}
-@-moz-keyframes cyananim {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(1);
-  }
-}
-@-o-keyframes cyananim {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(1);
-  }
-}
-@keyframes cyananim {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  25% {
-    transform: rotate(-90deg) scale(0.5);
-  }
-  50% {
-    transform: rotate(-180deg) scale(0.5);
-  }
-  75% {
-    transform: rotate(-270deg) scale(0.5);
-  }
-  100% {
-    transform: rotate(-360deg) scale(1);
-  }
-}
-@-webkit-keyframes cyanfont {
-  0%, 100% {
-    color: white;
-  }
-  20%, 80% {
-    color: #00BCD4;
-  }
-}
-@-moz-keyframes cyanfont {
-  0%, 100% {
-    color: white;
-  }
-  20%, 80% {
-    color: #00BCD4;
-  }
-}
-@-o-keyframes cyanfont {
-  0%, 100% {
-    color: white;
-  }
-  20%, 80% {
-    color: #00BCD4;
-  }
-}
-@keyframes cyanfont {
-  0%, 100% {
-    color: white;
-  }
-  20%, 80% {
-    color: #00BCD4;
-  }
-}
-@-webkit-keyframes bluefont {
-  25% {
-    color: white;
-  }
-  0%, 10%, 35% {
-    color: #2196F3;
-  }
-}
-@-moz-keyframes bluefont {
-  25% {
-    color: white;
-  }
-  0%, 10%, 35% {
-    color: #2196F3;
-  }
-}
-@-o-keyframes bluefont {
-  25% {
-    color: white;
-  }
-  0%, 10%, 35% {
-    color: #2196F3;
-  }
-}
-@keyframes bluefont {
-  25% {
-    color: white;
-  }
-  0%, 10%, 35% {
-    color: #2196F3;
-  }
-}
-@-webkit-keyframes greenfont {
-  75% {
-    color: white;
-  }
-  0%, 50%, 85% {
-    color: #009688;
-  }
-}
-@-moz-keyframes greenfont {
-  75% {
-    color: white;
-  }
-  0%, 50%, 85% {
-    color: #009688;
-  }
-}
-@-o-keyframes greenfont {
-  75% {
-    color: white;
-  }
-  0%, 50%, 85% {
-    color: #009688;
-  }
-}
-@keyframes greenfont {
-  75% {
-    color: white;
-  }
-  0%, 50%, 85% {
-    color: #009688;
-  }
-}
-@-webkit-keyframes redfont {
-  50% {
-    color: white;
-  }
-  0%, 25%, 60% {
-    color: #EF5350;
-  }
-}
-@-moz-keyframes redfont {
-  50% {
-    color: white;
-  }
-  0%, 25%, 60% {
-    color: #EF5350;
-  }
-}
-@-o-keyframes redfont {
-  50% {
-    color: white;
-  }
-  0%, 25%, 60% {
-    color: #EF5350;
-  }
-}
-@keyframes redfont {
-  50% {
-    color: white;
-  }
-  0%, 25%, 60% {
-    color: #EF5350;
-  }
-}
+    .head h1 {
+        font-family: "Oswald";
+        text-align: center;
+        font-size: 20px;
+        width: 100%;
+        color: transparent;
+        text-shadow: 0px 0px 1px #eee, 2px 2px 1px teal, -2px -1px 1px maroon;
+        font-weight: 400;
+        -moz-transform: skewX(0deg);
+        -ms-transform: skewX(0deg);
+        -webkit-transform: skewX(0deg);
+        transform: skewX(0deg);
+        -moz-animation: shift 4s ease-in-out infinite alternate;
+        -webkit-animation: shift 4s ease-in-out infinite alternate;
+        animation: shift 4s ease-in-out infinite alternate;
+    }
+
+    @-moz-keyframes shift {
+        0%,40%, 44%, 58%, 61%, 65%,69%,73%,100% {
+            -moz-transform: skewX(0deg);
+            transform: skewX(0deg);
+        }
+        41% {
+            -moz-transform: skewX(10deg);
+            transform: skewX(10deg);
+        }
+        42% {
+            -moz-transform: skewX(-10deg);
+            transform: skewX(-10deg);
+        }
+        59% {
+            -moz-transform: skewX(40deg) skewY(10deg);
+            transform: skewX(40deg) skewY(10deg);
+        }
+        60% {
+            -moz-transform: skewX(-40deg) skewY(-10deg);
+            transform: skewX(-40deg) skewY(-10deg);
+        }
+        63% {
+            -moz-transform: skewX(10deg) skewY(-5deg);
+            transform: skewX(10deg) skewY(-5deg);
+        }
+        70% {
+            -moz-transform: skewX(-50deg) skewY(-20deg);
+            transform: skewX(-50deg) skewY(-20deg);
+        }
+        71% {
+            -moz-transform: skewX(10deg) skewY(-10deg);
+            transform: skewX(10deg) skewY(-10deg);
+        }
+    }
+    @-webkit-keyframes shift {
+        0%,40%, 44%, 58%, 61%, 65%,69%,73%,100% {
+            -webkit-transform: skewX(0deg);
+            transform: skewX(0deg);
+        }
+        41% {
+            -webkit-transform: skewX(10deg);
+            transform: skewX(10deg);
+        }
+        42% {
+            -webkit-transform: skewX(-10deg);
+            transform: skewX(-10deg);
+        }
+        59% {
+            -webkit-transform: skewX(40deg) skewY(10deg);
+            transform: skewX(40deg) skewY(10deg);
+        }
+        60% {
+            -webkit-transform: skewX(-40deg) skewY(-10deg);
+            transform: skewX(-40deg) skewY(-10deg);
+        }
+        63% {
+            -webkit-transform: skewX(10deg) skewY(-5deg);
+            transform: skewX(10deg) skewY(-5deg);
+        }
+        70% {
+            -webkit-transform: skewX(-50deg) skewY(-20deg);
+            transform: skewX(-50deg) skewY(-20deg);
+        }
+        71% {
+            -webkit-transform: skewX(10deg) skewY(-10deg);
+            transform: skewX(10deg) skewY(-10deg);
+        }
+    }
+    @keyframes shift {
+        0%,40%, 44%, 58%, 61%, 65%,69%,73%,100% {
+            -moz-transform: skewX(0deg);
+            -ms-transform: skewX(0deg);
+            -webkit-transform: skewX(0deg);
+            transform: skewX(0deg);
+        }
+        41% {
+            -moz-transform: skewX(10deg);
+            -ms-transform: skewX(10deg);
+            -webkit-transform: skewX(10deg);
+            transform: skewX(10deg);
+        }
+        42% {
+            -moz-transform: skewX(-10deg);
+            -ms-transform: skewX(-10deg);
+            -webkit-transform: skewX(-10deg);
+            transform: skewX(-10deg);
+        }
+        59% {
+            -moz-transform: skewX(40deg) skewY(10deg);
+            -ms-transform: skewX(40deg) skewY(10deg);
+            -webkit-transform: skewX(40deg) skewY(10deg);
+            transform: skewX(40deg) skewY(10deg);
+        }
+        60% {
+            -moz-transform: skewX(-40deg) skewY(-10deg);
+            -ms-transform: skewX(-40deg) skewY(-10deg);
+            -webkit-transform: skewX(-40deg) skewY(-10deg);
+            transform: skewX(-40deg) skewY(-10deg);
+        }
+        63% {
+            -moz-transform: skewX(10deg) skewY(-5deg);
+            -ms-transform: skewX(10deg) skewY(-5deg);
+            -webkit-transform: skewX(10deg) skewY(-5deg);
+            transform: skewX(10deg) skewY(-5deg);
+        }
+        70% {
+            -moz-transform: skewX(-50deg) skewY(-20deg);
+            -ms-transform: skewX(-50deg) skewY(-20deg);
+            -webkit-transform: skewX(-50deg) skewY(-20deg);
+            transform: skewX(-50deg) skewY(-20deg);
+        }
+        71% {
+            -moz-transform: skewX(10deg) skewY(-10deg);
+            -ms-transform: skewX(10deg) skewY(-10deg);
+            -webkit-transform: skewX(10deg) skewY(-10deg);
+            transform: skewX(10deg) skewY(-10deg);
+        }
+    }
 </style>

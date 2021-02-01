@@ -2,7 +2,7 @@
 	<header class="navbar">
         <div class="navbar-brand">
 			<a class="navbar-item">
-				<span class="tag is-info is-light is-large">Pokymon</span>
+				<Logo />
 			</a>
         </div>
 		<div class="navbar-end">
@@ -24,9 +24,14 @@
 </template>
 
 <script>
+	import Logo from './Logo.vue'
+
 	export default {
 		name: 'Header',
-		props: ['user', 'participants', 'votes', 'revealCards'],
+		props: ['votes', 'revealCards'],
+		components: {
+			Logo
+		},
 		methods: {
 			onRevealCardClicked: function () {
 				this.$emit('onRevealCardClicked', true)
