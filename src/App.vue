@@ -8,8 +8,8 @@
 
 			<div class="hero-body">
 				<Room :votes="votes" :revealCards="revealCards" v-show="!showLoader" />
-				<div class="container is-centered">
-					<loader v-show="showLoader" />
+				<div  v-show="showLoader" class="container is-centered">
+					<loader />
 				</div>
 			</div>
 
