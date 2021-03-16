@@ -27,31 +27,24 @@
 		},
 		methods: {
 			calculAvgFibonacci: function (votes) {		
-				var summedVotes = votes.reduce((a, b) => a+b);
+				var summedVotes = votes.filter(v => !isNaN(v)).reduce((a, b) => a+b);
 				var averageVote = summedVotes / votes.length;
-				var roundedVote = Math.round(averageVote);
-
-				if (fibonacciSuit.includes(roundedVote))
-					return roundedVote;
 
 				var lowerBound = null;
 				var upperBound = null;
 
 				for (var i=0; i<fibonacciSuit.length; i++) {
-					if (fibonacciSuit[i] < roundedVote)
+					if (fibonacciSuit[i] < averageVote)
 						lowerBound = fibonacciSuit[i];
 						
-					if (upperBound === null && fibonacciSuit[i] > roundedVote)
+					if (upperBound === null && fibonacciSuit[i] > averageVote)
 						upperBound = fibonacciSuit[i];
 				}
 
-				var lowerBoundDifferential = roundedVote - lowerBound;
-				var upperBoundDifferential = upperBound - roundedVote;
-
-				if (lowerBoundDifferential < upperBoundDifferential)
-					return lowerBound;
+				if (averageVote >= ((upperBound + lowerBound) / 2))
+					return upperBound;
 				
-				return upperBound;
+				return lowerBound;
 			}
 		},
 		computed: {
