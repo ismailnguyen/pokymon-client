@@ -1,6 +1,6 @@
 <template>
   <div class="head">
-    <h1>Pokymon</h1>
+    <h1>{{ this.$route.params.id || 'Pokymon' }}</h1>
   </div>
 </template>
 

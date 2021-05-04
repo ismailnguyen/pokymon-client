@@ -48,6 +48,12 @@
 		transform: rotateY(0deg);
 	}
 
+	@media (prefers-color-scheme: dark) {
+		.front {
+			filter: none;
+		}
+	}
+
 	.num-box {
 		text-align: center;
 		position: absolute;

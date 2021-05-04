@@ -32,7 +32,6 @@
 		opacity: 1;
 		animation: bounce ease 2s 1;
 		
-		
 		@keyframes bounce {
 			0% { transform: translateY(0) }
 			10% { transform: translateY(-20px) }

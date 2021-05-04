@@ -8,9 +8,11 @@
     "production": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.11.9",
     "core-js": "^3.6.5",
     "socket.io-client": "^3.0.4",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

@@ -51,11 +51,23 @@
 		transition: all 0.5s;	
 	}
 
+	@media (prefers-color-scheme: dark) {
+		.front, .back {
+			filter: none;
+		}
+	}
+
 	.back {
 		border: 6px solid #fff;
 		background: conic-gradient(#ffcc33 25%, #fff3ce 25%, #fff3ce 50%, #ffcc33 50%, #ffcc33 75%, #fff3ce 75%);
 		background-size: 20px 20px;
 		transform: rotateY(0deg);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.back {
+			background: conic-gradient(#ff3333 25%, #ffcece 25%, #ffcece 50%, #ff3333 50%, #ff3333 75%, #ffcece 75%);
+		}
 	}
 
 	.front {

@@ -1,5 +1,5 @@
 <template>
-	<article class="message is-info">
+	<article class="message is-info card-panel">
 		<div class="message-body">
 			<div class="poker columns is-mobile is-multiline">
 				<div @click="onClickCard(choice)" :class="revealCards ? 'is-cursor-blocked' : ''" class="poker column" v-for="(choice, index) in cardChoices" :key="index">
@@ -15,13 +15,12 @@
 
 	export default {
 		name: 'Room',
-		props: ['userChoice', 'revealCards'],
+		props: ['userChoice', 'revealCards', 'selectedCard'],
 		components: {
 			Card
 		},
 		data() {
 			return {
-				selectedCard: '',
 				cardChoices: [
 					1, 2, 3, 5, 8, 13, 21, 100, '☕', '?'
 				]
@@ -34,12 +33,12 @@
 					return;
 			
 				if (this.selectedCard == choice) {
-					this.selectedCard = ''
+					//this.selectedCard = ''
 					this.$emit('onClickCard', '')
 					return
 				}
 				
-				this.selectedCard = choice
+				//this.selectedCard = choice
 				this.$emit('onClickCard', choice)
 			}
 		}
@@ -47,6 +46,12 @@
 </script>
 
 <style scoped>
+@media (prefers-color-scheme: dark) {
+      .card-panel {
+          background: #292b33;
+		}
+  }
+
 .is-cursor-blocked {
 	cursor: not-allowed !important;
 }

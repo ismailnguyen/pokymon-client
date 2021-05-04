@@ -26,9 +26,17 @@
 			AverageCard
 		},
 		methods: {
-			calculAvgFibonacci: function (votes) {		
-				var summedVotes = votes.filter(v => !isNaN(v)).reduce((a, b) => a+b);
-				var averageVote = summedVotes / votes.length;
+			calculAvgFibonacci: function (votes) {
+				var numericVotes = votes.filter(v => !isNaN(v));
+				
+				if (!numericVotes || !numericVotes.length)
+					return '';
+
+				var summedVotes = numericVotes.reduce((a, b) => a+b);
+				var averageVote = summedVotes / numericVotes.length;
+
+				if (fibonacciSuit.includes(averageVote))
+					return averageVote;
 
 				var lowerBound = null;
 				var upperBound = null;
