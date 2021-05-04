@@ -52,7 +52,8 @@
 		async created() {
 			this.roomId = this.$route.params.id;
 				
-			this.supabaseClient = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+			this.supabaseClient = createClient('https://teixrapupyxyghmohwdl.supabase.co',
+			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMDExOTg2MywiZXhwIjoxOTM1Njk1ODYzfQ.UaVxUyE4wrHUym1N72c0LNE8_plCQ0ha9r_YEtBmaJU');
 
 			var { data, error } = await this.supabaseClient
 			.from('rooms')
