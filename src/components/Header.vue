@@ -10,10 +10,12 @@
 				<div class="field is-grouped">
 					<p class="control">
 						<a class="button is-link is-light" v-show="!revealCards && votes.length > 0" @click="onRevealCardClicked">
+							<img src="/resources/reveal.svg" alt="Reveal" title="Reveal" />
 							<span>Reveal cards</span>
 						</a>
 						
 						<a class="button is-danger is-light" v-show="revealCards" @click="onResetClicked">
+							<img src="/resources/reset.svg" alt="Reset" title="Reset" />
 							<span>Reset</span>
 						</a>
 
@@ -55,5 +57,9 @@
 		position: fixed;
 		bottom: 15px;
 		right: 15px;
+	}
+	
+	.button span {
+		margin-left: 4px;
 	}
 </style>

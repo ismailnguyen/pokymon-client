@@ -37,6 +37,7 @@
 		font-family: 'Syne Mono', monospace;
 		cursor: pointer;
 		background: none !important;
+		box-shadow: rgb(196 196 196 / 35%) 2px 17px 18px;
 	}
 
 	.front, .back {
@@ -62,6 +63,29 @@
 		background: conic-gradient(#ffcc33 25%, #fff3ce 25%, #fff3ce 50%, #ffcc33 50%, #ffcc33 75%, #fff3ce 75%);
 		background-size: 20px 20px;
 		transform: rotateY(0deg);
+	}
+
+	@keyframes flyUp {
+		0% {
+			top:500px;
+		}
+		100% {
+			top: 0px;
+		}
+	}
+	
+	.card .back {
+		animation: flyUp 1s normal ease-out;
+	}
+
+	@keyframes flyUp {
+		0% {
+			top:500px;
+			box-shadow: none !important;
+		}
+		100% {
+			top: 0px;
+		}
 	}
 
 	@media (prefers-color-scheme: dark) {

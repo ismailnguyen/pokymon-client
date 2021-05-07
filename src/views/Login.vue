@@ -95,7 +95,7 @@
 <style>
 	 :root {
       --brandColor: hsl(166, 67%, 51%);
-      --background: #edf2f7;
+      --background: rgb(243, 245, 245);
       --textDark: hsla(0, 0%, 0%, 0.66);
       --textLight: hsla(0, 0%, 0%, 0.33);
     }
