@@ -8,7 +8,7 @@
         <div class="suit">{{ value }}</div>
       </div>
       <div class="suit main">
-		<span class="tag is-dark">Average</span>
+		<span class="tag is-dark">{{ takeBreak ? 'Keep calm and have a ☕' : 'Average' }}</span>
 		</div>
     </div>
   </label>
@@ -17,7 +17,7 @@
 <script>
 	export default {
 		name: 'AverageCard',
-		props: ['value']
+		props: ['value', 'takeBreak']
 	}
 </script>
 

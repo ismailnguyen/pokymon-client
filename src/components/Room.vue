@@ -6,7 +6,7 @@
 
 		<div class="columns is-centered" v-if="revealCards">
 		  <div class="column is-half">
-			<AverageCard :value="averageVote" />
+			<AverageCard :value="averageVote" :takeBreak="takeBreak" />
 		  </div>
 		</div>
 	</div>
@@ -60,6 +60,10 @@
 				var voteValues = this.votes.filter(v => v.vote).map(v => v.vote);
 				
 				return this.calculAvgFibonacci(voteValues);
+			},
+
+			takeBreak: function () {
+				return this.votes.filter(v => v.vote).map(v => v.vote).includes('☕');
 			}
 		}
 	}

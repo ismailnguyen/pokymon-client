@@ -2,9 +2,16 @@ export function requireAuth (to, from, next)
 {
     if (!isLoggedIn())
     {
+		if (to && to.name == 'Room' && to.params && to.params.id) {
+			next({
+				path: '/',
+				query: { redirect: to.params.id }
+			});
+		}
+
         next({
             path: '/',
-            //query: { redirect: to.fullPath }
+				query: { redirect: to.params.id }
         });
     }
     else

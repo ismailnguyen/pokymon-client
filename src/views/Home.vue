@@ -6,9 +6,11 @@
 			</div>
 
 			<div class="hero-body">
+				<Confetti v-show="showConfetti" />
+
 				<Room :votes="votes" :revealCards="revealCards" v-show="!showLoader" />
-				<div  v-show="showLoader" class="container is-centered">
-					<loader />
+				<div v-show="showLoader" class="container is-centered">
+					<Loader />
 				</div>
 			</div>
 
@@ -26,6 +28,7 @@
 	import CardPanel from '../components/CardPanel.vue'
 	import UserList from '../components/UserList.vue'
 	import Loader from '../components/Loader.vue'
+	import Confetti from '../components/Confetti.vue'
 
 	export default {
 		name: 'Login',
@@ -35,6 +38,7 @@
 			UserList,
 			CardPanel,
 			Loader,
+			Confetti
 		},
 		data() {
 			return {
@@ -46,7 +50,8 @@
 				connectedUsers: [],
 				roomId: '',
 				subscription: null,
-				selectedCard: ''
+				selectedCard: '',
+				showConfetti: false
 			}
 		},
 		async created() {
@@ -89,6 +94,16 @@
 					if (!this.votes.length && !this.revealCards) {
 						this.selectedCard = '';
 					}
+					
+					var allVotes = this.votes.map(v => v.vote)
+					var isConsensus = allVotes.every(v => v === allVotes[0])
+					
+					if (this.revealCards && isConsensus) {
+						this.showConfetti = true;
+					}
+					else if (!this.votes.length) {
+						this.showConfetti = false;
+					}
 				}
 			})
 			.subscribe()
@@ -104,6 +119,7 @@
 			},
 			async onResetClicked () {
 				this.votes = [];
+				this.showConfetti = false;
 				this.revealCards = false;
 				this.selectedCard = '';
 
@@ -120,11 +136,11 @@
 						.from('rooms')
 						.update({ connected_users: this.connectedUsers })
 						.match({ roomId: this.roomId })
-				
-					console.log('connection', data, error)
 				}
 
-				this.showLoader = false;
+				setTimeout(() => {
+					this.showLoader = false;
+				}, 1500);
 			},
 			async onCardClicked(choice) {
 				this.selectedCard = choice;

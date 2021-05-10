@@ -22,16 +22,6 @@
 
 <style scoped>
 	.voted {
-		border-bottom: 1px solid blue;
+		border-bottom: 1px solid hsl(328, 95%, 50%);
 	}
-	
-	@media (prefers-color-scheme: dark) {
-      a {
-          color: #fff !important;
-		}
-
-		.voted {
-			border-color: #fff;
-		}
-    }
 </style>

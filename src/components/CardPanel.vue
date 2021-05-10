@@ -1,13 +1,11 @@
 <template>
-	<article class="message is-info card-panel">
-		<div class="message-body">
-			<div class="poker columns is-mobile is-multiline">
-				<div @click="onClickCard(choice)" :class="revealCards ? 'is-cursor-blocked' : ''" class="poker column" v-for="(choice, index) in cardChoices" :key="index">
-					<Card :value="choice" :voted="choice == selectedCard || !selectedCard" />
-				</div>
+	<div class="card-panel">
+		<div class="poker columns is-mobile is-multiline">
+			<div @click="onClickCard(choice)" :class="revealCards ? 'is-cursor-blocked' : ''" class="poker column" v-for="(choice, index) in cardChoices" :key="index">
+				<Card :value="choice" :voted="choice == selectedCard || !selectedCard" />
 			</div>
 		</div>
-	</article>
+	</div>
 </template>
 
 <script>
@@ -46,11 +44,13 @@
 </script>
 
 <style scoped>
-@media (prefers-color-scheme: dark) {
-      .card-panel {
-          background: #292b33;
-		}
-  }
+.card-panel {
+	background: rgba(255, 255, 255, 0.375);
+	box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
+	border-radius: 2rem;
+	border: 1px solid rgba(255, 255, 255, 0.125);
+	backdrop-filter: blur(25px);
+}
 
 .is-cursor-blocked {
 	cursor: not-allowed !important;
