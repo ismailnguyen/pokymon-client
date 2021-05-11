@@ -204,7 +204,7 @@
 	  border: 1px solid rgba(255, 255, 255, 0.125);
 	  position: relative;
 	  height: 50%;
-	  margin-top: 15%;
+	  margin-top: 5%;
 	  display: block;
 	  backdrop-filter: blur(25px);
 	}
@@ -212,6 +212,7 @@
 	@media only screen and (max-width: 600px) {
 		.register{
 			padding: 0;
+			width: 100%;
 		}
 	}
 
