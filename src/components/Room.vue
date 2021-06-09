@@ -27,8 +27,7 @@
 		},
 		methods: {
 			calculAvgFibonacci: function (votes) {
-				var numericVotes = votes.filter(v => !isNaN(v));
-				
+				var numericVotes = votes.filter(v => !isNaN(v)).map(v => parseInt(v));
 				if (!numericVotes || !numericVotes.length)
 					return '';
 
@@ -58,7 +57,7 @@
 		computed: {
 			averageVote: function () {
 				var voteValues = this.votes.filter(v => v.vote).map(v => v.vote);
-				
+
 				return this.calculAvgFibonacci(voteValues);
 			},
 

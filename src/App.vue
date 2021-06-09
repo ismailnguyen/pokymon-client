@@ -29,12 +29,16 @@
 		--bg-gradient: linear-gradient( to bottom, hsl(var(--hue), 95%, 99%), hsl(var(--hue), 95%, 84%) );
 	}
 
+	html {
+		font-family: var(--font-family);
+		color: var(--dark-color);
+		background: var(--bg-gradient);
+		overflow: hidden;
+	}
+
 	body {
 		min-height: 100vh;
 		place-items: center;
 		padding: 2rem;
-		font-family: var(--font-family);
-		color: var(--dark-color);
-		background: var(--bg-gradient);
-	}	
+	}
 </style>
