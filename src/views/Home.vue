@@ -54,7 +54,8 @@
 			}
 		},
 		async created() {
-			this.roomId = this.$route.params.id;
+			this.roomId = this.$route.params.id
+			document.title = 'Pokymon | ' + this.roomId
 			this.user = getUser()
 	
 			this.supabaseClient = createClient('https://teixrapupyxyghmohwdl.supabase.co',
@@ -80,6 +81,11 @@
 
 				this.revealCards = data[0].isCardsRevealed
 				this.adminUser = data[0].admin
+				
+				// If the user has already selected a card before login, preselect it
+				if (data[0].votes && data[0].votes.map(v => v.user).includes(this.user)) {
+					this.selectedCard = data[0].votes.find(v => v.user == this.user).vote
+				}
 			}
 
 			await this.suscribeToChanges()

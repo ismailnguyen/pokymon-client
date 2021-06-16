@@ -1,10 +1,8 @@
 <template>
-	<nav class="breadcrumb is-centered has-bullet-separator" aria-label="breadcrumbs">
-		<ul>
-			<li class="is-active" v-for="(vote, index) in votes" :key="index">
-				<a href="#" :class="userCssClass(vote)">{{vote.user}}</a>
-			</li>
-		</ul>
+	<nav class="breadcrumb is-centered has-bullet-separator tabs-container" aria-label="breadcrumbs">		
+		<div class="tabs">
+			<label :class="userCssClass(vote)" v-for="(vote, index) in votes" :key="index">{{vote.user}}</label>
+		</div>
 	</nav>
 </template>
 
@@ -14,7 +12,7 @@
 		props: ['adminUser', 'votes'],
 		methods: {
 			userCssClass (vote) {
-				var cssClass = []
+				var cssClass = ['tab']
 
 				if (vote.vote)
 					cssClass.push('voted')
@@ -29,10 +27,45 @@
 </script>
 
 <style scoped>
-	.breadcrumb li.is-active a.voted {
-		border-bottom: 1px solid hsl(328, 95%, 50%);
+	.tabs-container {
+		display: flex;
+		justify-content: center;
 	}
-	.breadcrumb li.is-active a.is-admin {
+
+	.tabs {
+		display: flex;
+		position: relative;
+		background-color: #fff;
+		padding: 0.75rem;
+		border-radius: 99px;
+	}
+
+	.tab {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 25px;
+		min-width: 100px;
+		margin-right: 15px;
+		border-radius: 99px;
+		transition: color 0.15s ease-in;
+	}
+
+	.voted {
+		display: flex;
+		background-color: #e6eef9;
+		z-index: 1;
+		border-radius: 99px;
+		transition: 0.25s ease-out;
+	}
+	
+	.is-admin {
 		color: hsl(328, 95%, 50%);
+	}
+
+	@media (max-width: 700px) {
+		.tab {
+			transform: scale(0.6);
+		}
 	}
 </style>

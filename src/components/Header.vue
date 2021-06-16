@@ -4,6 +4,9 @@
 			<a class="navbar-item">
 				<Logo />
 			</a>
+			<a class="navbar-item is-family-code has-text-weight-semibold is-uppercase">
+				{{ this.$route.params.id }}
+			</a>
         </div>
 		<div class="navbar-end">
 			<div class="navbar-item">
