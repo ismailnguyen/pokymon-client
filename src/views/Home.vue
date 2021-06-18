@@ -72,9 +72,12 @@
 				`)
 				.filter('roomId', 'eq', this.roomId)
 
+			var isRoomExist = data && data.length
+
 			// If room doesn't already exists, create it
-			if (!data || !data.length) {
+			if (!isRoomExist) {
 				await this.createRoom()
+				await this.connect()
 			} else {
 				this.votes = data[0].votes
 				await this.connect()
@@ -86,6 +89,8 @@
 				if (data[0].votes && data[0].votes.map(v => v.user).includes(this.user)) {
 					this.selectedCard = data[0].votes.find(v => v.user == this.user).vote
 				}
+
+				this.handleConsensus()
 			}
 
 			await this.suscribeToChanges()
@@ -176,6 +181,22 @@
 			
 				this.$router.push({ name: 'Home'})
 			},
+			handleConsensus () {
+				var allVotes = this.votes.map(v => v.vote)
+				var isConsensus = allVotes.filter(v => v).every(v => v === allVotes[0])
+				
+				// If party ended, reset the previously selected card
+				if (!allVotes.some(v => v) && !this.revealCards) {
+					this.selectedCard = '';
+				}
+
+				if (this.revealCards && isConsensus) {
+					this.showConsensusAnimation = true
+				}
+				else if (!allVotes.some(v => v)) {
+					this.showConsensusAnimation = false
+				}
+			},
 			async suscribeToChanges () {
 				await this.supabaseClient
 					.from('rooms:roomId=eq.' + this.roomId)
@@ -184,20 +205,7 @@
 						if (newRoom) {
 							this.revealCards = newRoom.isCardsRevealed;	
 
-							var allVotes = this.votes.map(v => v.vote)
-							var isConsensus = allVotes.filter(v => v).every(v => v === allVotes[0])
-							
-							// If party ended, reset the previously selected card
-							if (!allVotes.some(v => v) && !this.revealCards) {
-								this.selectedCard = '';
-							}
-
-							if (this.revealCards && isConsensus) {
-								this.showConsensusAnimation = true
-							}
-							else if (!allVotes.some(v => v)) {
-								this.showConsensusAnimation = false
-							}
+							this.handleConsensus()
 						}
 					})
 					.subscribe()

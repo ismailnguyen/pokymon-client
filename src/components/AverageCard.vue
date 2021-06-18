@@ -44,7 +44,7 @@
 		backface-visibility: hidden;
 		transition: all 0.5s;	
 		font-size: 24px;
-		background-color: #1F2023;
+		background-color: #1f2023e6;
 		transform: rotateY(0deg);
 	}
 

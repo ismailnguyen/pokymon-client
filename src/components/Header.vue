@@ -12,7 +12,7 @@
 			<div class="navbar-item">
 				<div class="field is-grouped">
 					<p class="control">
-						<a class="button is-link is-light" v-show="!revealCards && votes.length > 0" @click="onRevealCardClicked">
+						<a class="button is-link is-light" v-show="!revealCards && votes.map(v => v.vote).filter(v => v).length > 0" @click="onRevealCardClicked">
 							<img src="/resources/reveal.svg" alt="Reveal" title="Reveal" />
 							<span>Reveal cards</span>
 						</a>
