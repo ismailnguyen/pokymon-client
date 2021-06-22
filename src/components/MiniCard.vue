@@ -30,14 +30,21 @@
 <style scoped>
 	.card {
 		display: block;
-		width: 150px;
-		height: 200px;
+		width: 22vh;
+		height: 28vh;
 		margin: 12px;
 		position: relative;
 		font-family: 'Syne Mono', monospace;
 		cursor: pointer;
 		background: none !important;
 		box-shadow: rgb(196 196 196 / 35%) 2px 17px 18px;
+	}
+
+	@media (max-width: 1024px){
+		.card {
+			width: 12vh;
+			height: 18vh;
+		}
 	}
 
 	.front, .back {
@@ -104,7 +111,7 @@
 	}
 
     .card.show .front {
-		background-color: #fff;
+		background-color: #fffc;
 		transform: rotateY(0deg);
 	}
 

@@ -1,7 +1,7 @@
 <template>
 	<nav class="breadcrumb is-centered has-bullet-separator tabs-container" aria-label="breadcrumbs">		
 		<div class="tabs">
-			<label :class="userCssClass(vote)" v-for="(vote, index) in votes" :key="index">{{vote.user}}</label>
+			<label :class="userCssClass(vote)" v-for="(vote, index) in votes" :key="index" :title="vote.user">{{vote.user}}</label>
 		</div>
 	</nav>
 </template>
@@ -34,8 +34,10 @@
 
 	.tabs {
 		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
 		position: relative;
-		background-color: #fff;
+		background-color: #fffc;
 		padding: 0.75rem;
 		border-radius: 99px;
 	}
@@ -47,8 +49,10 @@
 		height: 25px;
 		min-width: 100px;
 		margin-right: 15px;
+		margin-top: 15px;
 		border-radius: 99px;
 		transition: color 0.15s ease-in;
+		overflow: hidden;
 	}
 
 	.voted {

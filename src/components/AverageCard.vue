@@ -24,13 +24,20 @@
 <style scoped>
 	.card {
 		display: block;
-		width: 200px;
-		height: 250px;
+		width: 22vh;
+		height: 28vh;
 		margin: 50px auto;
 		position: relative;
 		font-family: 'Syne Mono', monospace;
 		background: none !important;
 		color: white;
+	}
+
+	@media (max-width: 1024px){
+		.card {
+			width: 12vh;
+			height: 18vh;
+		}
 	}
 
 	.front {

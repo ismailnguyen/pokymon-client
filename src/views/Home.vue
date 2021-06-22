@@ -1,5 +1,5 @@
 <template>
-	<section class="hero is-fullheight">
+	<section class="hero is-fullheight-with-navbar">
 		<div class="hero-head">
 				<Header :revealCards="revealCards" :votes="votes" @onRevealCardClicked="onRevealCardClicked" @onResetClicked="onResetClicked" @onLogoutClicked="onLogoutClicked" v-show="!showLoader" />
 				<UserList :adminUser="adminUser" :votes="votes" v-show="!showLoader" />
@@ -14,7 +14,7 @@
 				</div>
 			</div>
 
-			<div class="hero-foot" v-show="!showLoader">
+			<div class="hero-foot" v-show="!showLoader & !revealCards">
 				<CardPanel @onClickCard="onCardClicked" :revealCards="revealCards" :selectedCard="selectedCard" />
 			</div>
 	</section>
@@ -241,3 +241,17 @@
 		}
 	}
 </script>
+
+<style scoped>
+	.hero-body {
+		flex: 1 1 auto;
+    	overflow-y: auto;
+		height: 0px;
+		align-items: flex-start !important;
+	}
+
+	.hero-foot {
+		position: fixed;
+		bottom: 0;
+	}
+</style>

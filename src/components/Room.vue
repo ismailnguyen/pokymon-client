@@ -1,13 +1,9 @@
 <template>
 	<div class="container has-text-centered">
+		<AverageCard :value="averageVote" :takeBreak="takeBreak" v-if="revealCards" />
+		
 		<div class="cards">
 			<MiniCard v-for="(vote, index) in votes.filter(v => v.vote)" :key="index" :value="vote.vote" :user="vote.user" :visible="revealCards" />
-		</div>
-
-		<div class="columns is-centered" v-if="revealCards">
-		  <div class="column is-half">
-			<AverageCard :value="averageVote" :takeBreak="takeBreak" />
-		  </div>
 		</div>
 	</div>
 </template>
