@@ -182,8 +182,8 @@
 				this.$router.push({ name: 'Home'})
 			},
 			handleConsensus () {
-				var allVotes = this.votes.map(v => v.vote)
-				var isConsensus = allVotes.filter(v => v).every(v => v === allVotes[0])
+				var allVotes = this.votes.map(v => v.vote).filter(v => v)
+				var isConsensus = allVotes.every(v => v === allVotes[0])
 				
 				// If party ended, reset the previously selected card
 				if (!allVotes.some(v => v) && !this.revealCards) {
