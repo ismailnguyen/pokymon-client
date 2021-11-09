@@ -70,6 +70,7 @@
 		background: conic-gradient(#ffcc33 25%, #fff3ce 25%, #fff3ce 50%, #ffcc33 50%, #ffcc33 75%, #fff3ce 75%);
 		background-size: 20px 20px;
 		transform: rotateY(0deg);
+		z-index: 99;
 	}
 
 	@keyframes flyUp {
