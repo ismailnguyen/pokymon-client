@@ -116,7 +116,6 @@
 			async onResetClicked () {
 				this.votes = [];
 				this.showConsensusAnimation = false;
-				this.revealCards = false;
 				this.selectedCard = '';
 
 				await this.supabaseClient
@@ -126,7 +125,7 @@
 					
 				await this.supabaseClient
 					.from('rooms')
-					.update({ isCardsRevealed: false, revealed: 'false' })
+					.update({ isCardsRevealed: false, revealed: 'false', reseted: 'true' })
 					.match({ roomId: this.roomId })
 			},
 			async connect() {
@@ -201,12 +200,19 @@
 				await this.supabaseClient
 					.from('rooms:roomId=eq.' + this.roomId)
 					.on('UPDATE', room => {
-						console.log(room)
 						var newRoom = room.new;
 						if (newRoom) {
 							this.revealCards = newRoom.revealed = 'true';	
 
-							this.handleConsensus()
+							if (newRoom.reseted == 'true') {
+								console.log('aaaa', newRoom, newRoom.reseted == 'true')
+								this.votes = [];
+								this.showConsensusAnimation = false;
+								this.selectedCard = '';
+								window.location.reload();
+							}
+							else
+								this.handleConsensus()
 						}
 					})
 					.subscribe()
