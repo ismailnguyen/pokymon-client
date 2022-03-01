@@ -163,6 +163,11 @@
 					.from('votes')
 					.update({ vote: choice })
 					.match({ roomId: this.roomId, user: this.user })
+
+				await this.supabaseClient
+					.from('rooms')
+					.update({ reseted: 'false' })
+					.match({ roomId: this.roomId })
 			},
 			async onLogoutClicked() {
 				// If it is the last user, reset the party also
@@ -202,17 +207,17 @@
 					.on('UPDATE', room => {
 						var newRoom = room.new;
 						if (newRoom) {
-							this.revealCards = newRoom.revealed = 'true';	
+							this.revealCards = newRoom.revealed == 'true';	
 
+							console.log(newRoom)
 							if (newRoom.reseted == 'true') {
-								console.log('aaaa', newRoom, newRoom.reseted == 'true')
 								this.votes = [];
 								this.showConsensusAnimation = false;
 								this.selectedCard = '';
 								window.location.reload();
 							}
-							else
-								this.handleConsensus()
+
+							this.handleConsensus()
 						}
 					})
 					.subscribe()
