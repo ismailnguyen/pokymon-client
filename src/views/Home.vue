@@ -61,41 +61,44 @@
 			this.supabaseClient = createClient('https://teixrapupyxyghmohwdl.supabase.co',
 			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMDExOTg2MywiZXhwIjoxOTM1Njk1ODYzfQ.UaVxUyE4wrHUym1N72c0LNE8_plCQ0ha9r_YEtBmaJU');
 
-			var { data, error } = await this.supabaseClient
-				.from('rooms')
-				.select(`
-					*,
-					votes (
-						user,
-						vote
-					)
-				`)
-				.filter('roomId', 'eq', this.roomId)
-
-			var isRoomExist = data && data.length
-
-			// If room doesn't already exists, create it
-			if (!isRoomExist) {
-				await this.createRoom()
-				await this.connect()
-			} else {
-				this.votes = data[0].votes
-				await this.connect()
-
-				this.revealCards = data[0].isCardsRevealed
-				this.adminUser = data[0].admin
-				
-				// If the user has already selected a card before login, preselect it
-				if (data[0].votes && data[0].votes.map(v => v.user).includes(this.user)) {
-					this.selectedCard = data[0].votes.find(v => v.user == this.user).vote
-				}
-
-				this.handleConsensus()
-			}
+			await this.init()
 
 			await this.suscribeToChanges()
 		},
 		methods: {
+			async init() {
+				var { data, error } = await this.supabaseClient
+					.from('rooms')
+					.select(`
+						*,
+						votes (
+							user,
+							vote
+						)
+					`)
+					.filter('roomId', 'eq', this.roomId)
+
+				var isRoomExist = data && data.length
+
+				// If room doesn't already exists, create it
+				if (!isRoomExist) {
+					await this.createRoom()
+					await this.connect()
+				} else {
+					this.votes = data[0].votes
+					await this.connect()
+
+					this.revealCards = data[0].isCardsRevealed
+					this.adminUser = data[0].admin
+					
+					// If the user has already selected a card before login, preselect it
+					if (data[0].votes && data[0].votes.map(v => v.user).includes(this.user)) {
+						this.selectedCard = data[0].votes.find(v => v.user == this.user).vote
+					}
+
+					this.handleConsensus()
+				}
+			},
 			async createRoom() {
 				await this.supabaseClient
 					.from('rooms')
@@ -114,10 +117,6 @@
 						.match({ roomId: this.roomId })
 			},
 			async onResetClicked () {
-				this.votes = [];
-				this.showConsensusAnimation = false;
-				this.selectedCard = '';
-
 				await this.supabaseClient
 					.from('votes')
 					.update({ vote: '' })
@@ -127,6 +126,8 @@
 					.from('rooms')
 					.update({ isCardsRevealed: false, revealed: 'false', reseted: 'true' })
 					.match({ roomId: this.roomId })
+
+				await this.init()
 			},
 			async connect() {
 				if (!this.votes.map(v => v.user).includes(this.user)) {
@@ -203,26 +204,6 @@
 			},
 			async suscribeToChanges () {
 				await this.supabaseClient
-					.from('rooms:roomId=eq.' + this.roomId)
-					.on('UPDATE', room => {
-						var newRoom = room.new;
-						if (newRoom) {
-							this.revealCards = newRoom.revealed == 'true';	
-
-							console.log(newRoom)
-							if (newRoom.reseted == 'true') {
-								this.votes = [];
-								this.showConsensusAnimation = false;
-								this.selectedCard = '';
-								window.location.reload();
-							}
-
-							this.handleConsensus()
-						}
-					})
-					.subscribe()
-
-				await this.supabaseClient
 					.from('votes:roomId=eq.' + this.roomId)
 					.on('*', payload => {
 						var newVote = payload.new
@@ -246,6 +227,24 @@
 								this.votes.splice(oldVoteIndex, 1);
 
 							}
+						}
+					})
+					.subscribe()
+					
+					await this.supabaseClient
+					.from('rooms:roomId=eq.' + this.roomId)
+					.on('UPDATE', room => {
+						var newRoom = room.new;
+						if (newRoom) {
+							this.revealCards = newRoom.revealed == 'true';	
+
+							if (newRoom.reseted == 'true') {
+								this.votes = [];
+								this.showConsensusAnimation = false;
+								this.selectedCard = '';
+							}
+
+							this.handleConsensus()
 						}
 					})
 					.subscribe()
