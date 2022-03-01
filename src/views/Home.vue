@@ -106,11 +106,11 @@
 				this.adminUser = this.user
 			},
 			async onRevealCardClicked (newValue) {
-				this.revealCards = newValue
+				//this.revealCards = newValue
 
 				await this.supabaseClient
 						.from('rooms')
-						.update({ isCardsRevealed: true })
+						.update({ isCardsRevealed: newValue, revealed: 'true' })
 						.match({ roomId: this.roomId })
 			},
 			async onResetClicked () {
@@ -126,7 +126,7 @@
 					
 				await this.supabaseClient
 					.from('rooms')
-					.update({ isCardsRevealed: false })
+					.update({ isCardsRevealed: false, revealed: 'false' })
 					.match({ roomId: this.roomId })
 			},
 			async connect() {
@@ -201,9 +201,10 @@
 				await this.supabaseClient
 					.from('rooms:roomId=eq.' + this.roomId)
 					.on('UPDATE', room => {
+						console.log(room)
 						var newRoom = room.new;
 						if (newRoom) {
-							this.revealCards = newRoom.isCardsRevealed;	
+							this.revealCards = newRoom.revealed = 'true';	
 
 							this.handleConsensus()
 						}
