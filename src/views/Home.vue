@@ -56,7 +56,6 @@
 		async created() {
 			this.roomId = this.$route.params.id
 			document.title = 'Pokymon | ' + this.roomId
-			this.user = getUser()
 	
 			this.supabaseClient = createClient('https://teixrapupyxyghmohwdl.supabase.co',
 			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMDExOTg2MywiZXhwIjoxOTM1Njk1ODYzfQ.UaVxUyE4wrHUym1N72c0LNE8_plCQ0ha9r_YEtBmaJU');
@@ -67,6 +66,8 @@
 		},
 		methods: {
 			async init() {
+				this.user = getUser()
+
 				var { data, error } = await this.supabaseClient
 					.from('rooms')
 					.select(`
@@ -88,7 +89,7 @@
 					this.votes = data[0].votes
 					await this.connect()
 
-					this.revealCards = data[0].isCardsRevealed
+					this.revealCards = data[0].revealed == 'true'
 					this.adminUser = data[0].admin
 					
 					// If the user has already selected a card before login, preselect it
@@ -108,12 +109,10 @@
 
 				this.adminUser = this.user
 			},
-			async onRevealCardClicked (newValue) {
-				//this.revealCards = newValue
-
+			async onRevealCardClicked () {
 				await this.supabaseClient
 						.from('rooms')
-						.update({ isCardsRevealed: newValue, revealed: 'true' })
+						.update({ revealed: 'true' })
 						.match({ roomId: this.roomId })
 			},
 			async onResetClicked () {
@@ -124,7 +123,7 @@
 					
 				await this.supabaseClient
 					.from('rooms')
-					.update({ isCardsRevealed: false, revealed: 'false', reseted: 'true' })
+					.update({ revealed: 'false', reseted: 'true' })
 					.match({ roomId: this.roomId })
 
 				await this.init()
@@ -175,7 +174,7 @@
 				if (this.votes.length == 1) {
 					await this.supabaseClient
 						.from('rooms')
-						.update({ isCardsRevealed: false })
+						.update({ revealed: 'false' })
 						.match({ roomId: this.roomId })
 				}
 
@@ -204,50 +203,48 @@
 			},
 			async suscribeToChanges () {
 				await this.supabaseClient
-					.from('votes:roomId=eq.' + this.roomId)
-					.on('*', payload => {
-						var newVote = payload.new
-						if (newVote && newVote.user) {
-							var userVote = this.votes.find(v => v.user == newVote.user)
-							if (userVote) {
-								this.votes.find(v => v.user == newVote.user).vote = newVote.vote
-							}
-							else {
-								this.votes.push(newVote)
-							}
+				.from('votes:roomId=eq.' + this.roomId)
+				.on('*', payload => {
+					var newVote = payload.new
+					if (newVote && newVote.user) {
+						var userVote = this.votes.find(v => v.user == newVote.user)
+						if (userVote) {
+							this.votes.find(v => v.user == newVote.user).vote = newVote.vote
+						}
+						else {
+							this.votes.push(newVote)
+						}
+					}
+
+					// If user is no more
+					// Remove the user and his vote from game
+					var oldVote = payload.old
+					if (oldVote && (!newVote || (newVote && !newVote.user))) {
+						const userVote = this.votes.find(v => v.user == oldVote.user);
+						if (userVote) {
+							const oldVoteIndex = this.votes.indexOf(userVote);
+							this.votes.splice(oldVoteIndex, 1);
+
+						}
+					}
+				})
+				.subscribe()
+				
+				await this.supabaseClient
+				.from('rooms:roomId=eq.' + this.roomId)
+				.on('UPDATE', async (room) => {
+					var newRoom = room.new;
+					if (newRoom) {
+						this.revealCards = newRoom.revealed == 'true';	
+
+						if (newRoom.reseted == 'true') {
+							await this.init()
 						}
 
-						// If user is no more
-						// Remove the user and his vote from game
-						var oldVote = payload.old
-						if (oldVote && (!newVote || (newVote && !newVote.user))) {
-							const userVote = this.votes.find(v => v.user == oldVote.user);
-							if (userVote) {
-								const oldVoteIndex = this.votes.indexOf(userVote);
-								this.votes.splice(oldVoteIndex, 1);
-
-							}
-						}
-					})
-					.subscribe()
-					
-					await this.supabaseClient
-					.from('rooms:roomId=eq.' + this.roomId)
-					.on('UPDATE', room => {
-						var newRoom = room.new;
-						if (newRoom) {
-							this.revealCards = newRoom.revealed == 'true';	
-
-							if (newRoom.reseted == 'true') {
-								this.votes = [];
-								this.showConsensusAnimation = false;
-								this.selectedCard = '';
-							}
-
-							this.handleConsensus()
-						}
-					})
-					.subscribe()
+						this.handleConsensus()
+					}
+				})
+				.subscribe()
 			}
 		}
 	}
