@@ -58,7 +58,7 @@
 			},
 
 			takeBreak: function () {
-				return this.votes.filter(v => v.vote).map(v => v.vote).includes('☕');
+				return this.votes.filter(v => v.vote).map(v => v.vote).includes('🍪');
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <template>
 	<label class="card">
-    <div class="front">
+    <div class="front" :class="takeBreak ? 'take-break' : ''">
       <div class="num-box top">
         <div class="suit">{{ value }}</div>
       </div>
@@ -8,7 +8,7 @@
         <div class="suit">{{ value }}</div>
       </div>
       <div class="suit main">
-		<span class="tag is-dark">{{ takeBreak ? 'Keep calm and have a ☕' : 'Average' }}</span>
+		<span class="tag is-dark">{{ takeBreak ? 'Keep calm and eat a cookie' : 'Average' }}</span>
 		</div>
     </div>
   </label>
@@ -125,6 +125,10 @@
 		font-size: 24px;
 		background-color: #1f2023e6;
 		transform: rotateY(0deg);
+	}
+
+	.front.take-break {
+		background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='70px' width='70px'><text x='0' y='50' fill='red' font-size='50'>🍪</text></svg>");
 	}
 
 	@media (prefers-color-scheme: dark) {
