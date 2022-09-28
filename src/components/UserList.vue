@@ -2,7 +2,7 @@
 	<nav class="breadcrumb is-centered has-bullet-separator tabs-container" aria-label="breadcrumbs">		
 		<div class="tabs">
 			<label :class="userCssClass(vote)" v-for="(vote, index) in votes" :key="index" :title="vote.user">
-				<button class="delete is-small" v-if="vote.user != adminUser" @click="onRemoveUserClicked(vote.user)"></button>
+				<button class="delete is-small" v-if="adminUser == currentUser && vote.user != adminUser" @click="onRemoveUserClicked(vote.user)"></button>
 				
 				{{vote.user}}
 			</label>
@@ -13,7 +13,7 @@
 <script>
 	export default {
 		name: 'UserList',
-		props: ['adminUser', 'votes'],
+		props: ['adminUser', 'votes', 'currentUser'],
 		methods: {
 			userCssClass (vote) {
 				var cssClass = ['tab']

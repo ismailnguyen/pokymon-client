@@ -11,6 +11,7 @@
 
 				<UserList
 					:adminUser="adminUser"
+					:currentUser="user"
 					:votes="votes"
 					@onRemoveUserClicked="onRemoveUserClicked"
 					v-show="!showLoader" />
