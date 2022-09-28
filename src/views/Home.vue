@@ -1,8 +1,19 @@
 <template>
 	<section class="hero is-fullheight-with-navbar">
 		<div class="hero-head">
-				<Header :revealCards="revealCards" :votes="votes" @onRevealCardClicked="onRevealCardClicked" @onResetClicked="onResetClicked" @onLogoutClicked="onLogoutClicked" v-show="!showLoader" />
-				<UserList :adminUser="adminUser" :votes="votes" v-show="!showLoader" />
+				<Header
+					:revealCards="revealCards"
+					:votes="votes"
+					@onRevealCardClicked="onRevealCardClicked"
+					@onResetClicked="onResetClicked"
+					@onLogoutClicked="onLogoutClicked"
+					v-show="!showLoader" />
+
+				<UserList
+					:adminUser="adminUser"
+					:votes="votes"
+					@onRemoveUserClicked="onRemoveUserClicked"
+					v-show="!showLoader" />
 			</div>
 
 			<div class="hero-body">
@@ -184,6 +195,12 @@
 					.match({ roomId: this.roomId, user: this.user })
 			
 				this.$router.push({ name: 'Home'})
+			},
+			async onRemoveUserClicked(user) {
+				await this.supabaseClient
+					.from('votes')
+					.delete()
+					.match({ roomId: this.roomId, user: user })
 			},
 			handleConsensus () {
 				var allVotes = this.votes.map(v => v.vote).filter(v => v)

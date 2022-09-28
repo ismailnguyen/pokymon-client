@@ -1,7 +1,11 @@
 <template>
 	<nav class="breadcrumb is-centered has-bullet-separator tabs-container" aria-label="breadcrumbs">		
 		<div class="tabs">
-			<label :class="userCssClass(vote)" v-for="(vote, index) in votes" :key="index" :title="vote.user">{{vote.user}}</label>
+			<label :class="userCssClass(vote)" v-for="(vote, index) in votes" :key="index" :title="vote.user">
+				<button class="delete is-small" v-if="vote.user != adminUser" @click="onRemoveUserClicked(vote.user)"></button>
+				
+				{{vote.user}}
+			</label>
 		</div>
 	</nav>
 </template>
@@ -21,7 +25,11 @@
 					cssClass.push('is-admin')
 
 				return cssClass.join(' ')
-			}
+			},
+
+			onRemoveUserClicked: function (user) {
+				this.$emit('onRemoveUserClicked', user)
+			},
 		}
 	}
 </script>
@@ -65,6 +73,10 @@
 	
 	.is-admin {
 		color: hsl(328, 95%, 50%);
+	}
+
+	button.delete {
+		margin-right: 5px;
 	}
 
 	@media (max-width: 700px) {
