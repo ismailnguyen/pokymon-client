@@ -243,6 +243,10 @@
 							const oldVoteIndex = this.votes.indexOf(userVote);
 							this.votes.splice(oldVoteIndex, 1);
 
+							// If the removed user the current one, log him/her out
+							if (userVote.user == this.user) {
+								this.$router.push({ name: 'Home'});
+							}
 						}
 					}
 				})
